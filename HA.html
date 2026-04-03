@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hernandez Artístico | Publicidad e Impresión Profesional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    :root {
+      --color-fondo: #0a0a0a;
+      --color-principal: #ff1a1a; 
+      --color-texto: #ffffff;
+      --color-borde: rgba(255, 26, 26, 0.2);
+    }
+
+    body { margin: 0; font-family: 'Poppins', sans-serif; color: var(--color-texto); background: var(--color-fondo); scroll-behavior: smooth; overflow-x: hidden; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between;
+      align-items: center; padding: 15px 50px; z-index: 1000; background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-borde); box-sizing: border-box;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; }
+    .logo img { height: 45px; }
+    .nav-links a { color: white; text-decoration: none; margin-left: 25px; font-size: 0.9rem; transition: 0.3s; }
+    .nav-links a:hover { color: var(--color-principal); }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.5), var(--color-fondo)), 
+                  url("fotos\ pagina\ cristian/logo01.png") center/cover no-repeat fixed;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+    }
+    .hero h1 { font-size: clamp(2.5rem, 7vw, 5rem); margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+    .btn-red { margin: 10px; padding: 15px 35px; border-radius: 5px; cursor: pointer; font-weight: 700; text-transform: uppercase; border: none; background: var(--color-principal); color: white; transition: 0.3s; }
+    .btn-red:hover { transform: scale(1.05); }
+
+    /* SERVICIOS */
+    section { padding: 80px 0; border-bottom: 1px solid var(--color-borde); }
+    .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.card {
+    position: relative;
+    height: 320px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid var(--color-borde);
+    cursor: pointer;
+    background-color: #000; /* Fondo negro base */
+}
+
+/* La foto de fondo con transparencia */
+.card-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35; /* Ajusta este número (0.1 a 0.9) para más o menos transparencia */
+    transition: 0.5s ease;
+    z-index: 1;
+}
+
+/* Filtro oscuro intermedio para que el texto resalte */
+.card-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4); 
+    z-index: 2;
+}
+
+/* Contenido al frente */
+.card-content {
+    position: relative;
+    z-index: 3;
+    padding: 25px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.card:hover .card-bg {
+    opacity: 0.7; /* Se aclara al pasar el mouse */
+    transform: scale(1.1);
+}
+
+.card i { font-size: 2.2rem; color: var(--color-principal); margin-bottom: 15px; }
+.card h3 { font-size: 1.4rem; text-shadow: 2px 2px 8px #000; color: #fff; margin: 0; }
+
+    /* GALERÍA DE TRABAJOS DISTRIBUIDA */
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); grid-auto-rows: 200px; gap: 15px; margin-top: 40px; }
+    .portfolio-item { position: relative; overflow: hidden; border-radius: 10px; border: 1px solid #222; }
+    .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .portfolio-item:hover img { transform: scale(1.1); filter: brightness(0.7); }
+    .portfolio-item.wide { grid-column: span 2; }
+
+    /* MODALES Y POP-UPS */
+    .overlay {
+      display: none; position: fixed; z-index: 5000; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9); align-items: center; justify-content: center; backdrop-filter: blur(8px);
+    }
+    .modal-content {
+      background: #111; padding: 40px; border-radius: 20px; border: 2px solid var(--color-principal);
+      max-width: 700px; width: 90%; text-align: center; position: relative; animation: zoomIn 0.3s ease;
+    }
+    @keyframes zoomIn { from {transform: scale(0.9); opacity:0;} to {transform: scale(1); opacity:1;} }
+    .close-btn { position: absolute; top: 15px; right: 20px; font-size: 35px; cursor: pointer; color: white; }
+
+    /* --- ARREGLO DEL POP-UP: CASOS DE ÉXITO --- */
+    .popup-success-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .popup-success-item {
+      position: relative;
+      height: 200px; /* Altura fija para que no se estiren */
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+    
+    .popup-success-item img {
+      width: 100%;
+      height: 100%;
+      /* LA SOLUCIÓN MÁGICA: object-fit: cover */
+      object-fit: cover; 
+      object-position: center;
+      transition: 0.4s;
+    }
+    
+    .popup-success-item:hover img {
+      transform: scale(1.05);
+      border-color: var(--color-principal);
+    }
+
+    /* CONTACTO */
+    .contact-wrapper { display: flex; flex-wrap: wrap; gap: 40px; margin-top: 40px; }
+    .contact-info-side { flex: 1; text-align: left; }
+    .contact-item-box { background: white; color: #111; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
+    .form-side { flex: 1; background: white; padding: 35px; border-radius: 25px; color: #222; }
+
+    /* WHATSAPP FLOTANTE */
+    .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+    .whatsapp-float i { color: white; font-size: 30px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="fotos pagina cristian/logo01.PNG" alt="Hernandez Artístico">
+    <span>Hernandez Artístico</span>
+  </div>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#portfolio">Proyectos</a>
+    <a href="#contacto">Cotizar</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>Hernandez Artístico</h1>
+    <p>Publicidad • Impresión • Wrapping • Diseño</p>
+    <button class="btn-red" onclick="togglePopup('trabajos-popup')">Ver Nuestros Trabajos</button>
+  </div>
+</div>
+
+<section id="servicios">
+  <div class="container">
+    <h2 style="text-align:center;">Servicios <span style="color:var(--color-principal)">Especializados</span></h2>
+    <div class="services-grid">
+      
+
+  <div class="card" onclick="openModal('Impresión Digital', ' Especialistas en: Impresión de tarjetas de presentación inmediatas, Cuadernos personalizados con su marca, Carpetas rápidas, Brochure de última hora, Afiches y Stickers en materiales especiales.')">
+    <div class="card-bg" style="background-image: url('fotos\ pagina\ cristian/litografia03.webp')"></div>
+    <div class="card-overlay"></div>
+    <div class="card-content"><i class="fas fa-bolt"></i><h3>Impresión Digital</h3></div>
+  </div>
+
+
+  <div class="card" onclick="openModal('Instalación en Vidrios', 'Vinilo microperforado, esmerilado (frost) y decoración de vitrinas o fachadas,Transformamos sus espacios comerciales con elegancia y privacidad. Instalación de Vinilo Microperforado (ideal para publicidad sin perder luz), Esmerilado o Frost (para oficinas y baños), Vinilo de corte decorativo y Películas de seguridad..')">
+    <div class="card-bg" style="background-image: url('fotos\ pagina\ cristian/instalacionvidrios01.avif')"></div>
+    <div class="card-overlay"></div>
+    <div class="card-content"><i class="fas fa-border-all"></i><h3>Vidrios y Frost</h3></div>
+  </div>
+
+  <div class="card" onclick="openModal('Wrapping / Forrado', 'Cambio de color y protección de pintura para vehículos (Full Wrap) y motos, proteja la pintura original y cambie el look de su vehículo. Realizamos forrado completo (Full Wrap) de carros y motos, cambio de color con vinilos premium, branding vehicular para empresas y protección de pintura con materiales de alta durabilidad..')">
+    <div class="card-bg" style="background-image: url('fotos pagina cristian/forradocarro02.avif')"></div>
+    <div class="card-overlay"></div>
+    <div class="card-content"><i class="fas fa-car"></i><h3>Wrapping / Forrado</h3></div>
+  </div>
+
+  <div class="card" onclick="openModal('Estampados y Dotaciones', 'Camisetas, chaquetas y gorras personalizadas con DTF y vinilo textil.')">
+    <div class="card-bg" style="background-image: url('fotos\ pagina\ cristian/estampados02.png')"></div>
+    <div class="card-overlay"></div>
+    <div class="card-content"><i class="fas fa-tshirt"></i><h3>Estampados</h3></div>
+  </div>
+
+  <div class="card" onclick="openModal('Sublimación / Merchandising', 'Mugs, termos, llaveros y artículos promocionales con impresión fotográfica.')">
+    <div class="card-bg" style="background-image: url('fotos pagina cristian/sublimacion01.webp')"></div>
+    <div class="card-overlay"></div>
+    <div class="card-content"><i class="fas fa-mug-hot"></i><h3>Sublimación</h3></div>
+  </div>
+
+  <div class="card" onclick="openModal('Diseño Gráfico', 'Creación de logos, identidad visual, vectorización y piezas para redes sociales.')">
+    <div class="card-bg" style="background-image: url('fotos pagina cristian/dg01.jpg')"></div>
+    <div class="card-overlay"></div>
+    <div class="card-content"><i class="fas fa-pen-nib"></i><h3>Diseño Gráfico</h3></div>
+  </div>
+
+</div>
+</section>
+
+<section id="portfolio">
+  <div class="container">
+    <h2 style="text-align:center;">Galería de <span style="color:var(--color-principal)">Proyectos</span> Reales</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item wide"><img src="fotos pagina cristian/aviso02.jpeg" alt="Instalación de Vinilos Profesional"></div>
+      <div class="portfolio-item"><img src="fotos pagina cristian/foto 008.jpeg" alt="Wrapping / Forrado Vehicular"></div>
+      <div class="portfolio-item"><img src="fotos pagina cristian/foto 005.jpeg" alt="Estampado de Dotaciones"></div>
+      <div class="portfolio-item"><img src="fotos pagina cristian/foto 010.jpeg" alt="Publicidad Exterior / Vallas"></div>
+      <div class="portfolio-item wide"><img src="fotos pagina cristian/foto 004.jpeg" alt="Impresión Litográfica Masiva"></div>
+      <div class="portfolio-item"><img src="fotos pagina cristian/dg02.jpeg" alt="Diseño de Marca Corporativa"></div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="container">
+    <div class="contact-wrapper">
+      <div class="contact-info-side">
+        <h2>¿Hablamos de tu <br><span style="color:var(--color-principal)">Próximo Proyecto?</span></h2>
+        <div class="contact-item-box"><i class="fab fa-whatsapp"></i> <div><p>WhatsApp</p><strong>322 366 4534</strong></div></div>
+        <div class="contact-item-box"><i class="fas fa-map-marker-alt"></i> <div><p>Dirección</p><strong>Cra 27 #63g-06, Bogotá</strong></div></div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3977.0543789645!2d-74.0945!3d4.5825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9907f185366d%3A0x6b8641d4596395b!2sCra.%2027a%20%2363g-06%2C%20Bogot%C3%A1!5e0!3m2!1ses!2sco!4v1712160000000!5m2!1ses!2sco0" width="100%" height="250" style="border:0; border-radius:12px; margin-top:20px; border: 1px solid var(--color-borde);" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      
+      <div class="form-side">
+        <h3 style="text-align:center;">SOLICITAR COTIZACIÓN</h3>
+        <form id="whatsappForm">
+          <div style="margin-bottom:15px;"><label style="font-size:0.7rem; font-weight:700;">NOMBRE COMPLETO *</label><input type="text" id="clienteNombre" placeholder="Tu nombre" required style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd;"></div>
+          
+          <div style="margin-bottom:15px;"><label style="font-size:0.7rem; font-weight:700;">SERVICIO DE INTERÉS *</label>
+            <select id="clienteServicio" style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd;">
+              <option>Litografía</option><option>Digital</option><option>Gran Formato</option><option>Wrapping</option><option>Estampados</option><option>Diseño</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:15px;"><label style="font-size:0.7rem; font-weight:700;">DETALLES DEL TRABAJO *</label><textarea id="clienteMensaje" placeholder="Ej: Cantidades, medidas, materiales..." required rows="4" style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd;"></textarea></div>
+          <button type="button" onclick="enviarWhatsApp()" style="width:100%; background:var(--color-principal); color:white; padding:18px; border:none; border-radius:8px; font-weight:700; cursor:pointer;">ENVIAR A WHATSAPP</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="trabajos-popup" class="overlay">
+  <div class="modal-content">
+    <span class="close-btn" onclick="togglePopup('trabajos-popup')">×</span>
+    <h2 style="color:var(--color-principal)">Nuestros Trabajos</h2>
+    <p>Calidad garantizada y acabados profesionales en cada entrega.</p>
+    
+    <div class="popup-success-gallery">
+      <div class="popup-success-item"><img src="fotos pagina cristian/aviso04.jpeg" alt="Instalación de wrapping en camioneta offroad"></div>
+      <div class="popup-success-item"><img src="fotos pagina cristian/carro1.jpeg" alt="Detalle wrapping 4x4 extreme adventure"></div>
+      <div class="popup-success-item"><img src="fotos pagina cristian/moto01.jpeg" alt="Estampado en vinilo textil de alta calidad"></div>
+      <div class="popup-success-item"><img src="fotos pagina cristian/foto 007.jpg" alt="Rotulación comercial en fachada"></div>
+    </div>
+    
+  </div>
+</div>
+
+<div id="serviceModal" class="overlay">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">×</span>
+    <h2 id="modalTitle" style="color:var(--color-principal); margin-bottom:15px;"></h2>
+    <p id="modalBody" style="text-align: justify; line-height:1.8; color:#ddd; font-size:1rem; border-top: 1px solid #333; padding-top:20px;"></p>
+    <button class="btn-red" style="margin-top:30px; width: 100%;" onclick="closeModal(); location.href='#contacto'">Solicitar Cotización</button>
+  </div>
+</div>
+
+<a href="https://wa.me/573223664534" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+  // FUNCIONES DE POPUPS
+  function togglePopup(id) {
+    const p = document.getElementById(id);
+    p.style.display = (p.style.display === 'flex') ? 'none' : 'flex';
+  }
+  
+  // FUNCIONES DE MODALES SERVICIOS
+  function openModal(t, b) {
+    document.getElementById('modalTitle').innerText = t;
+    document.getElementById('modalBody').innerText = b;
+    document.getElementById('serviceModal').style.display = 'flex';
+  }
+  function closeModal() { document.getElementById('serviceModal').style.display = 'none'; }
+  
+  // CERRAR POPUPS HACER CLIC FUERA
+  window.onclick = function(e) { 
+    if(e.target.className.includes('overlay')) { 
+      closeModal(); 
+      document.getElementById('trabajos-popup').style.display = 'none'; 
+    } 
+  }
+
+  // FUNCIÓN ENVÍO A WHATSAPP
+  function enviarWhatsApp() {
+    const nombre = document.getElementById('clienteNombre').value;
+    const servicio = document.getElementById('clienteServicio').value;
+    const mensaje = document.getElementById('clienteMensaje').value;
+    const telefono = "573223664534";
+
+    if (nombre === "" || mensaje === "") { alert("Por favor, completa tu nombre y los detalles del proyecto."); return; }
+
+    const textoWhatsApp = `Hola Hernandez Artístico! 👋%0A%0A` +
+                          `*Nombre:* ${nombre}%0A` +
+                          `*Servicio:* ${servicio}%0A` +
+                          `*Detalles del proyecto:* ${mensaje}`;
+    window.open(`https://wa.me/${telefono}?text=${textoWhatsApp}`, '_blank');
+  }
+</script>
+
+</body>
+</html>
